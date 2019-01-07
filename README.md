@@ -26,6 +26,18 @@
 
 详见：https://www.lucien.ink/archives/396/
 
+# 其它
+
+默认适用于获取 UPC 校内的 `IP` ，获取公网 `IP` 需 `import sock` ，然后将下面的函数替换源码中 `get_ip()` 函数：
+
+```python
+def get_ip():
+    sock = socket.create_connection(('ns1.dnspod.net', 6666), 20)
+    ip = sock.recv(16)
+    sock.close()
+    return ip
+```
+
 # 鸣谢
 
 [@Andyliu](https://github.com/andyliu24)
