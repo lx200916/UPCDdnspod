@@ -8,7 +8,7 @@ import json
 import os
 import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
-path = "/home/"  # py 文件所在目录，请不要漏掉最右侧的 '/'
+path = os.path.split(os.path.realpath(__file__))[0] + os.path.sep  # 脚本根目录
 
 
 def log(level, message):
@@ -29,7 +29,7 @@ def config_reader():
         except Exception as exception:
             log(-1, repr(exception))
             exit(0)
-    log(-1, "'config.json' not found")
+    log(-1, "`config.json` not found")
     exit(-1)
 
 
@@ -60,7 +60,7 @@ def request_dnspod(config):
     response = conn.getresponse()
     data = response.read()
     message = json.loads(str(data).split("'")[1])['status']['message']
-    log(0, "From DNSPOD: " + message)
+    log(0, "Message from DNSPOD: " + message)
     conn.close()
     return message == "Action completed successful"
 
@@ -76,6 +76,7 @@ def get_ip():
 if __name__ == '__main__':
     try:
         config = config_reader()
+        log(0, "IP from `config.json`: %s" % config['ip_current'])
         ip_eportal = get_ip()
         log(0, "IP from ePortal: " + ip_eportal)
         if config['ip_current'] != ip_eportal:
@@ -84,6 +85,8 @@ if __name__ == '__main__':
                 config_writer(config)
             else:
                 log(-1, "Something Wrong, please see the log.txt file at: %s" % path + "log.txt")
+        else:
+            log(0, "Nothing different with IP from `config.json` and ePortal")
     except Exception as exception:
         log(-1, repr(exception))
         exit(-1)
