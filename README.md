@@ -40,4 +40,4 @@ def get_ip():
 
 # 鸣谢
 
-[@Andyliu](https://github.com/andyliu24)
+[@Andy Liu](https://github.com/andyliu24)
