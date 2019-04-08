@@ -1,13 +1,9 @@
 #!/usr/bin/python3
 # -*- coding:utf-8 -*-
-import http.client
-import urllib
 import time
 import requests
 import json
 import os
-import ssl
-ssl._create_default_https_context = ssl._create_unverified_context
 path = os.path.split(os.path.realpath(__file__))[0] + os.path.sep  # 脚本根目录
 
 
@@ -44,24 +40,17 @@ def config_writer(config):
 
 
 def request_dnspod(config):
-    params = dict(
-        login_token=("%s,%s" % (config['ID'], config['token'])),
-        format="json",
-        domain_id=config['domain_id'],
-        record_id=config['record_id'],
-        sub_domain=config['sub_domain'],
-        record_line="默认",
-        value=config['ip_current']
-    )
-    headers = {"Content-type": "application/x-www-form-urlencoded", "Accept": "text/json"}
-    conn = http.client.HTTPSConnection("dnsapi.cn")
-    conn.request("POST", "/Record.Ddns", urllib.parse.urlencode(params), headers)
-
-    response = conn.getresponse()
-    data = response.read()
-    message = json.loads(str(data).split("'")[1])['status']['message']
+    json_response = requests.api.post('https://dnsapi.cn/Record.Ddns', data={
+        'login_token': "%s,%s" % (config['ID'], config['token']),
+        'format': 'json',
+        'domain_id': config['domain_id'],
+        'record_id': config['record_id'],
+        'sub_domain': config['sub_domain'],
+        'record_line': "默认",
+        'value': config['ip_current']
+    }).json()
+    message = json_response['status']['message']
     log(0, "Message from DNSPOD: " + message)
-    conn.close()
     return message == "Action completed successful"
 
 
