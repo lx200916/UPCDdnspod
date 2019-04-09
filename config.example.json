@@ -1,8 +1,6 @@
 {
     "ID": "12345",
     "token": "abcdefghijklmnopqrstuvwxyz123456",
-    "domain_id": "",
-    "record_id": "",
     "sub_domain": "www",
     "domain": "example.com",
     "ip_current": "127.0.0.1"
