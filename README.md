@@ -2,6 +2,16 @@
 
 将本地的 IP 推至 DNSPOD
 
+# Requirements
+
+```bash
+python3.6+
+requests
+json
+os
+time
+```
+
 # 指南
 
 ```json
@@ -36,7 +46,7 @@
 
 # 其它
 
-默认适用于获取 UPC 校内的 `IP` ，获取公网 `IP` 需 `import sock` ，然后将下面的函数替换源码中 `get_ip()` 函数：
+默认适用于获取 UPC 校内的 `IP` ，获取公网 `IP` 需 `import socket` ，然后将下面的函数替换源码中 `get_ip()` 函数：
 
 ```python
 def get_ip():
