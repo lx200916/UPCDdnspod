@@ -1,9 +1,9 @@
-#!/usr/bin/python3
-# -*- coding:utf-8 -*-
+#!/usr/bin/env python3
 import time
 import requests
 import json
 import os
+
 path = os.path.split(os.path.realpath(__file__))[0] + os.path.sep  # 脚本根目录
 
 
@@ -57,9 +57,7 @@ def request_dnspod(config):
 def get_ip():
     address = "http://lan.upc.edu.cn/eportal/InterFace.do?method=getOnlineUserInfo"  # 有线
     # address = "http://wlan.upc.edu.cn/eportal/InterFace.do?method=getOnlineUserInfo"  #无线
-    getText = requests.get(address).text
-    textJson = json.loads(getText)
-    return (textJson['userIp'])
+    return requests.api.get(address).json()['userIp']
 
 
 if __name__ == '__main__':
@@ -79,5 +77,3 @@ if __name__ == '__main__':
     except Exception as exception:
         log(-1, repr(exception))
         exit(-1)
-
-
