@@ -1,4 +1,4 @@
-# UPCDdnspod Shell Script
+# UPCDdnspod
 
 在中国石油大学（华东）校园网中使用 `DNSPod` 用户 `API` 实现的纯 `Shell` 动态域名客户端
 
