@@ -87,10 +87,9 @@ def request_dnspod(login_token, sub_domain, domain_id, record_id, ip):
 
 
 def get_ip():
-    # address = "http://lan.upc.edu.cn/eportal/InterFace.do?method=getOnlineUserInfo"  # 有线
+    address = "http://lan.upc.edu.cn/eportal/InterFace.do?method=getOnlineUserInfo"  # 有线
     # address = "http://wlan.upc.edu.cn/eportal/InterFace.do?method=getOnlineUserInfo"  #无线
-    # return requests.api.get(address).json()['userIp']
-    return requests.api.get('https://ifconfig.co/ip').content.decode('utf-8').strip()
+    return requests.api.get(address).json()['userIp']
 
 
 if __name__ == '__main__':
