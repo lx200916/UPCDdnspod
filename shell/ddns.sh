@@ -12,7 +12,7 @@ case $(uname) in
   'Linux')
     echo "Linux"
     arIpAddress() {
-        curl -L -s ifconfig.co
+        curl -k -s http://lan.upc.edu.cn/eportal/InterFace.do?method=getOnlineUserInfo | awk -F, '{ print $10 }' | awk -F\" '{ print $4 }'
     }
     ;;
   'FreeBSD')
@@ -26,7 +26,7 @@ case $(uname) in
   'Darwin')
     echo "Mac"
     arIpAddress() {
-        curl -L -s ifconfig.co
+        curl -k -s http://lan.upc.edu.cn/eportal/InterFace.do?method=getOnlineUserInfo | awk -F, '{ print $10 }' | awk -F\" '{ print $4 }'
     }
     ;;
   'SunOS')
